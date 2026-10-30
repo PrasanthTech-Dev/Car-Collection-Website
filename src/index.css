@@ -4,38 +4,47 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 body {
   @apply bg-ink-950 text-white font-sans antialiased;
-  overflow-x: hidden;
   min-height: 100vh;
 }
 ::selection { background: #d4a64a; color: #07070a; }
+
+/* Global default scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #07070a; }
 ::-webkit-scrollbar-thumb { background: #262633; border-radius: 8px; }
 ::-webkit-scrollbar-thumb:hover { background: #d4a64a; }
 
-/* Custom scrollbar for slide/content containers */
+/* Lock body scroll when slide/modal is open */
+body.modal-open {
+  overflow: hidden !important;
+}
+
+/* Custom isolated scrollbar for slide/content containers */
 .custom-scrollbar {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: rgba(212, 166, 74, 0.5) rgba(7, 7, 10, 0.7);
+  scrollbar-color: #d4a64a #0b0b10;
 }
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  display: block;
+  width: 7px;
+  height: 7px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(7, 7, 10, 0.6);
-  border-radius: 8px;
+  background: rgba(11, 11, 16, 0.85);
+  border-radius: 9999px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(212, 166, 74, 0.35);
-  border-radius: 8px;
+  background: #d4a64a;
+  border-radius: 9999px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #d4a64a;
+  background: #f1d9a0;
 }
 
 @layer components {

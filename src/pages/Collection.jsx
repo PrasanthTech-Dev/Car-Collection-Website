@@ -28,18 +28,9 @@ export default function Collection() {
   // Lock main page scrolling when mobile filters drawer is open
   useEffect(() => {
     if (showFilters) {
-      const prevBodyOverflow = document.body.style.overflow
-      const prevHtmlOverflow = document.documentElement.style.overflow
-      const prevTouchAction = document.body.style.touchAction
-
-      document.body.style.overflow = 'hidden'
-      document.documentElement.style.overflow = 'hidden'
-      document.body.style.touchAction = 'none'
-
+      document.body.classList.add('modal-open')
       return () => {
-        document.body.style.overflow = prevBodyOverflow
-        document.documentElement.style.overflow = prevHtmlOverflow
-        document.body.style.touchAction = prevTouchAction
+        document.body.classList.remove('modal-open')
       }
     }
   }, [showFilters])

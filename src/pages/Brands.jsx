@@ -17,18 +17,9 @@ export default function Brands() {
   // Prevent main page scrolling when slide/modal is open
   useEffect(() => {
     if (selectedBrand) {
-      const prevBodyOverflow = document.body.style.overflow
-      const prevHtmlOverflow = document.documentElement.style.overflow
-      const prevBodyTouchAction = document.body.style.touchAction
-
-      document.body.style.overflow = 'hidden'
-      document.documentElement.style.overflow = 'hidden'
-      document.body.style.touchAction = 'none'
-
+      document.body.classList.add('modal-open')
       return () => {
-        document.body.style.overflow = prevBodyOverflow
-        document.documentElement.style.overflow = prevHtmlOverflow
-        document.body.style.touchAction = prevBodyTouchAction
+        document.body.classList.remove('modal-open')
       }
     }
   }, [selectedBrand])
@@ -156,16 +147,20 @@ export default function Brands() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-ink-950/85 p-3 sm:p-6 backdrop-blur-md overflow-hidden overscroll-none"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-ink-950/85 p-3 sm:p-6 backdrop-blur-md overflow-hidden overscroll-none touch-none"
             onClick={() => setSelectedBrand(null)}
+            onTouchMove={(e) => {
+              if (e.target === e.currentTarget) e.preventDefault()
+            }}
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="card relative flex max-h-[92vh] sm:max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden border border-gold-500/50 bg-ink-900 p-0 shadow-2xl"
+              className="card relative flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden border border-gold-500/50 bg-ink-900 p-0 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
             >
               {/* Header */}
               <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-5 py-3.5 sm:px-6 sm:py-4">
@@ -196,7 +191,10 @@ export default function Brands() {
               </div>
 
               {/* Modal scrollable content - isolated scrollbar */}
-              <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain p-4 sm:p-6 custom-scrollbar">
+              <div
+                className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain p-4 sm:p-6 custom-scrollbar"
+                style={{ touchAction: 'pan-y' }}
+              >
                 {/* Model switcher tabs if multiple models */}
                 {brandCars.length > 1 && (
                   <div className="mb-5 flex flex-wrap gap-2">

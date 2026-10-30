@@ -181,9 +181,8 @@ function Featured() {
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`relative rounded-full border px-5 py-2 text-xs font-semibold uppercase tracking-wider transition ${
-                tab === t ? 'border-gold-400 text-ink-950' : 'border-white/15 text-white/60 hover:border-white/40 hover:text-white'
-              }`}
+              className={`relative rounded-full border px-5 py-2 text-xs font-semibold uppercase tracking-wider transition ${tab === t ? 'border-gold-400 text-ink-950' : 'border-white/15 text-white/60 hover:border-white/40 hover:text-white'
+                }`}
             >
               {tab === t && <motion.span layoutId="home-tab" className="absolute inset-0 rounded-full bg-gold-500" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
               <span className="relative">{t}</span>

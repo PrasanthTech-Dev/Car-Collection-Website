@@ -44,7 +44,110 @@ export const COLORS = {
   Navy: '#0d1b33',
 }
 
-const colorList = (...names) => names.map((n) => ({ name: n, hex: COLORS[n] }))
+export const COLOR_META = {
+  Black: {
+    hex: '#111114',
+    finish: 'Nero Noctis Metallic',
+    code: 'BLK-01',
+    interior: 'Cuoio Tan Full-Grain Nappa Leather',
+    accent: 'Hand-polished Obsidian Black accents',
+    filter: 'grayscale(1) brightness(0.65) contrast(1.35)',
+  },
+  White: {
+    hex: '#f4f4f2',
+    finish: 'Bianco Monocerus Gloss',
+    code: 'WHT-02',
+    interior: 'Rosso Seta Leather with Contrast Stitching',
+    accent: 'Aluminium and Gloss Black exterior pack',
+    filter: 'grayscale(0.8) brightness(1.35) contrast(1.08)',
+  },
+  Silver: {
+    hex: '#b5b8bd',
+    finish: 'Argento Liquid Metal Metallic',
+    code: 'SLV-03',
+    interior: 'Grigio Carbon Alcantara & Brushed Metal',
+    accent: 'Titanium grey brake calipers & carbon trim',
+    filter: 'grayscale(1) brightness(1.18) contrast(1.15)',
+  },
+  Grey: {
+    hex: '#5b5f66',
+    finish: 'Grigio Telesto Matte Finish',
+    code: 'GRY-04',
+    interior: 'Nero Ade Leather with Contrast Piping',
+    accent: 'Satin Carbon Fibre splitters and diffusers',
+    filter: 'grayscale(1) brightness(0.88) contrast(1.22)',
+  },
+  Red: {
+    hex: '#b3121f',
+    finish: 'Rosso Corsa Tri-Coat Gloss',
+    code: 'RED-05',
+    interior: 'Nero Black Leather with Rosso Ferrari Accents',
+    accent: 'Yellow Brembo carbon-ceramic calipers',
+    filter: 'none',
+  },
+  Blue: {
+    hex: '#14346b',
+    finish: 'Blu Tour de France Pearl',
+    code: 'BLU-06',
+    interior: 'Crema Semi-Aniline Leather with Navy Piping',
+    accent: 'Polished chrome and diamond-cut forged alloys',
+    filter: 'hue-rotate(195deg) saturate(1.4) brightness(0.95)',
+  },
+  Green: {
+    hex: '#1f4a35',
+    finish: 'Verde British Racing Deep Gloss',
+    code: 'GRN-07',
+    interior: 'Cognac Saddle Leather with Olive Contrast Stitch',
+    accent: 'Heritage gold livery decals and bronze wheels',
+    filter: 'hue-rotate(90deg) saturate(1.25) brightness(0.95)',
+  },
+  Yellow: {
+    hex: '#e2b81a',
+    finish: 'Giallo Tristrato Triple-Layer Metallic',
+    code: 'YEL-08',
+    interior: 'Nero Alcantara with Giallo Precision Stitching',
+    accent: 'High-gloss carbon exterior aerodynamic package',
+    filter: 'hue-rotate(50deg) saturate(1.5) brightness(1.1)',
+  },
+  Orange: {
+    hex: '#d9671b',
+    finish: 'Arancio Borealis Pearlescent',
+    code: 'ORG-09',
+    interior: 'Nero Cosmus Alcantara with Arancio Accents',
+    accent: 'Gloss black roof and forged sports wheels',
+    filter: 'hue-rotate(30deg) saturate(1.45) brightness(1.05)',
+  },
+  Bronze: {
+    hex: '#8a6a3b',
+    finish: 'Bronzo Zante Satin Metallic',
+    code: 'BRZ-10',
+    interior: 'Espresso Full-Grain Leather with Gold Inlays',
+    accent: 'Champagne gold accents and dark satin trim',
+    filter: 'sepia(0.55) hue-rotate(345deg) saturate(1.3) brightness(0.95)',
+  },
+  Navy: {
+    hex: '#0d1b33',
+    finish: 'Midnight Blue Bespoke Metallic',
+    code: 'NVY-11',
+    interior: 'Arctic White Leather with Navy Seat Piping',
+    accent: 'Starlight headliner and chrome window surround',
+    filter: 'hue-rotate(205deg) saturate(1.3) brightness(0.75)',
+  },
+}
+
+export const colorList = (...names) =>
+  names.map((n) => {
+    const meta = COLOR_META[n] || {}
+    return {
+      name: n,
+      hex: meta.hex || COLORS[n] || '#111114',
+      finish: meta.finish || `${n} Gloss`,
+      code: meta.code || 'OEM-00',
+      interior: meta.interior || 'Bespoke Handcrafted Leather',
+      accent: meta.accent || 'Factory High-Gloss Package',
+      filter: meta.filter || 'none',
+    }
+  })
 
 const FEATURES = {
   Supercar: ['Carbon-ceramic brakes', 'Active aerodynamics', 'Launch control', 'Lightweight carbon monocoque', 'Track telemetry suite', 'Sport bucket seats'],
@@ -73,7 +176,14 @@ export const CARS = [
   make({
     id: 'ferrari-296-gtb', name: '296 GTB', brand: 'Ferrari', category: 'Supercar', year: 2024, price: 322000, fuel: 'Hybrid',
     power: 819, torque: 546, zeroTo60: 2.9, topSpeed: 205, engine: '3.0L V6 Plug-in Hybrid', transmission: '8-speed Dual Clutch', drivetrain: 'RWD', seats: 2,
-    img: '/images/brands/ferrari.jpg', gal: [], colors: colorList('Red', 'Black', 'Silver', 'Blue'), badge: 'Hybrid', featured: true,
+    img: '/images/brands/ferrari.jpg', gal: [],
+    colors: [
+      { name: 'Red', hex: '#b3121f', finish: 'Rosso Corsa Tri-Coat Gloss', code: 'FER-01', interior: 'Nero Black Leather with Rosso Stitching', accent: 'Yellow Brembo Calipers', image: '/images/cars/ferrari-296-gtb/red.jpg' },
+      { name: 'Black', hex: '#111114', finish: 'Nero Daytona Metallic', code: 'FER-02', interior: 'Cuoio Tan Full-Grain Nappa Leather', accent: 'Gloss Carbon Splitters', image: '/images/cars/ferrari-296-gtb/black.jpg' },
+      { name: 'Silver', hex: '#b5b8bd', finish: 'Argento Nürburgring Metallic', code: 'FER-03', interior: 'Grigio Carbon Alcantara & Brushed Metal', accent: 'Titanium Exhaust Pipes', image: '/images/cars/ferrari-296-gtb/silver.jpg' },
+      { name: 'Blue', hex: '#14346b', finish: 'Blu Tour de France Pearl', code: 'FER-04', interior: 'Crema Semi-Aniline Leather with Navy Piping', accent: 'Bespoke Racing Livery', image: '/images/cars/ferrari-296-gtb/blue.jpg' },
+    ],
+    badge: 'Hybrid', featured: true,
     description: 'A new era of Ferrari fun-to-drive: a turbocharged V6 paired with an electric motor delivering instant response and a thrilling 819 hp.',
   }),
   make({
@@ -187,7 +297,14 @@ export const CARS = [
   make({
     id: 'mahindra-thar-4x4', name: 'Thar 4x4 Hardtop', brand: 'Mahindra', category: 'SUV', year: 2024, price: 28000, fuel: 'Petrol',
     power: 150, torque: 236, zeroTo60: 10.2, topSpeed: 105, engine: '2.0L mStallion Turbo', transmission: '6-speed Automatic', drivetrain: 'AWD', seats: 4,
-    img: '/images/brands/mahindra.jpg', gal: [], colors: colorList('Black', 'Red', 'Grey', 'Bronze'), badge: '4x4 Off-Road', featured: true,
+    img: '/images/brands/mahindra.jpg', gal: [],
+    colors: [
+      { name: 'Black', hex: '#111114', finish: 'Napoli Black Pearl', code: 'MAH-01', interior: 'Sporty All-Black Theme with Silver Inserts', accent: 'Dark Finish 18-inch Deep Dish Alloys', image: '/images/cars/mahindra-thar-4x4/black.jpg' },
+      { name: 'Red', hex: '#b3121f', finish: 'Red Rage Gloss', code: 'MAH-02', interior: 'Sport Black Fabric with Red Precision Stitching', accent: 'Contrast Black Wheel Arches & Bumpers', image: '/images/cars/mahindra-thar-4x4/red.jpg' },
+      { name: 'Grey', hex: '#5b5f66', finish: 'Galaxy Grey Metallic', code: 'MAH-03', interior: 'Dual-Tone Charcoal Interior with Drain Plugs', accent: 'Matte Grey Skid Plates', filter: 'grayscale(1) brightness(0.85) contrast(1.2)' },
+      { name: 'Bronze', hex: '#8a6a3b', finish: 'Mystic Copper Satin', code: 'MAH-04', interior: 'Bespoke Desert Sand & Black Heavy-Duty Trim', accent: 'Gunmetal 4x4 Trail-Rated Badging', filter: 'sepia(0.55) hue-rotate(345deg) saturate(1.3) brightness(0.95)' },
+    ],
+    badge: '4x4 Off-Road', featured: true,
     description: 'An unstoppable icon of all-terrain adventure. Mechanical locking differentials, shift-on-the-fly 4WD, and rugged go-anywhere capability engineered for extreme exploration.',
   }),
 ]

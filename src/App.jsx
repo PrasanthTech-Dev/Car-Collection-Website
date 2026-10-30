@@ -28,7 +28,7 @@ function Layout() {
   const location = useLocation()
   const outlet = useOutlet()
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <ScrollToTop />
       <Navbar />
       <AnimatePresence mode="wait">

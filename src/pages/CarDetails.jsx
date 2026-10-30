@@ -26,10 +26,7 @@ export default function CarDetails() {
 
   useEffect(() => {
     if (!lightbox) return
-    const prevBodyOverflow = document.body.style.overflow
-    const prevHtmlOverflow = document.documentElement.style.overflow
-    document.body.style.overflow = 'hidden'
-    document.documentElement.style.overflow = 'hidden'
+    document.body.classList.add('modal-open')
 
     const onKey = (e) => {
       if (e.key === 'Escape') setLightbox(false)
@@ -39,8 +36,7 @@ export default function CarDetails() {
     window.addEventListener('keydown', onKey)
     return () => {
       window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prevBodyOverflow
-      document.documentElement.style.overflow = prevHtmlOverflow
+      document.body.classList.remove('modal-open')
     }
   }, [lightbox])
 
